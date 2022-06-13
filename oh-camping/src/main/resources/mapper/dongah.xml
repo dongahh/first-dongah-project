@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="CDA_campingDAO">
+    	<select id="roomofday_list" parameterType="Long" resultType="CDA_roomDTO">
+    		select * from camp_room where room_resdate = #{num} order by room_possible, room_name
+    	</select>
+    
+    
+    
+ </mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    
+    
+    <configuration>
+    	<typeAliases>
+    		<typeAlias type="com.pro.cda.CDA_campingDAO" alias="CDA_campingDAO"/>
+    		<typeAlias type="com.pro.cda.CDA_roomDTO" alias="CDA_roomDTO"/>
+    		<typeAlias type="com.pro.cda.CalendarDTO" alias="CalendarDTO"/>   		  	
+    	</typeAliases>
+    	
+    </configuration>
