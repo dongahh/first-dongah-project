@@ -12,37 +12,13 @@
 
 	/* 초기 화면  */		
 	$(document).ready(function(){
+		//넘어온값 넣고 넘어온 값이 없으면 오늘 날짜 입력 되도록.
 		next_calendar(2022,5);
 		getInfoList(2022512);
 		
-			
-			
-		
-		
-		/* $('.chk_lang').onclick(function(){
-			//$("input:checkbox[name='chk_lang']").change(function(){
-				
-				//if($(this).is(':checked')){
-					
-					alert('클릭');
-				
-					//$(this).parent().parent().attr('class','roomofdaycontainer_on');
-					//console.log($(this).parent().parent());
-				
-				//}
-				
-				//checkbox.parent().parent().attr('class','roomofdaycontainer_on');
-				
-				
-				
-		});	 */
-		
 	});
 
-												
-		
-	
-	
+													
 	
 	/* calendar가져오는 메서드 */
   	function next_calendar(year, month){
@@ -120,100 +96,30 @@
 		}); 
 	}//getInfoList(num) end
 	
-/* 	function getInfoList(num){
-		
-		var dayofcalendar = num;
-		
-		$.ajax({
-			
-			type: "post",
-			url: "reserve_getInfo.do",
-			dataType: "json",
-			//contentType:"application/json",
-			data: {dayofcalendar:dayofcalendar},			
-			success: function(data){
-				
-				alert('성공');
-				alert(data);
-				
-				var list = new Array(data.length);		
-				
-			},
-			error : function(request, status, error){
-				alert('error');
-				
-				
-			}
-		});
-		
-	} */
-	
-	/* 체크 된 값 넘겨주기 */
-	// 결제 페이지로 넘어갈 것 : room_no, addpeople, --> 리스트로 넘겨줘야 하나?
-	
-	/* //채크된 값 클래스 이름 변경
-	$(".checkSe").attr('class','checkSe_on'); */
-	
-	
-	//체크 내용 저장
-/* 	function doSave(){
-		let chk_langs = document.getElementsByName("chk_lang");
-		let checked_langs_items =[];
-		
-		
-		
-		for(let i=0; i<chk_langs.length; i++){
-			if(chk_langs[i].checked){
-				checked_langs_items.push(chk_langs[i].value);
-				
-				
-				
-			}
-		}
-		console.log(checked_langs_items);
-	} */
+
 	
 	
 	
-	//checkbox 바꾸면 발생하는 이벤트		
+	/* 체크박스 버튼 클릭시	 */
 	function checkclick(){
-		//var rowData = new array();
-		//var rdArr = new Array();
-		
-		
-		
-		
-		 //if($("input[name=chk_lang]").is(":checked")){
 			 
-		 	
-			var checkbox = $("input[name=chk_lang]:checked");
+		 	//1. check버튼 클릭시 class 이름 변경
+		 	//체크된 값.
+			let checkbox = $("input[name=chk_lang]:checked");
 			console.log(checkbox.val());
 			
-			var container = checkbox.parent().parent().attr('class','roomofdaycontainer_on');
-			
-			console.log(container); 
-			/* checkbox.each(function(){
-				
-				var container = checkbox.parent().parent().attr('class','roomofdaycontainer_on');
-				console.log(container); 
-				
-				
-			});*/
-		//}else{
-			
-			
-			var uncheckbox= $("input[name='chk_lang']:not(:checked)");
+			let container1 = checkbox.parent().parent().attr('class','roomofdaycontainer_on');			
+			console.log(container1);  //여기선 each사용 x?						
+	
+			//체크 안된 값.
+			let uncheckbox= $("input[name='chk_lang']:not(:checked)");
 			console.log(uncheckbox.val());
+								
+			let container2 = uncheckbox.parent().parent().attr('class','roomofdaycontainer');
+			console.log(container2);
 				
 				
-				var container = uncheckbox.parent().parent().attr('class','roomofdaycontainer');
-				console.log(container);
-				
-				
-			
-		//}
-			
-		/* 	//class가  roomofdaycontainer_on로 바뀐 것의 데이터만 가져와 form에 넣어주면 됨.
+			//2. 이름이 변경된 클래스 정보를 리스트에 담아줌.
 			let checked_info = document.getElementsByClassName("roomofdaycontainer_on");
 			
 			let checked_roomno =[];
@@ -225,39 +131,32 @@
 				checked_roomno.push($(this).find('.roomno').val());
 				//check_roomday = $(this).find('.').val();
 				checked_addpeople.push($(this).find('.people_adult').val());
-			}); */
-			
-				 /* for(let i=0; i<checked_info.length; i++){
-				console.log(checked_info[i]);
-				console.log(checked_info[i].children);
-				console.log(checked_info[i].children[0].children[1].value);
-				console.log(checked_info[i].children[0].children[2].value); */
-				
-				//checked_roomno.push(checked_info[i].children('.roomno').value);
-				//checked_addpeople.push(checked_info[i].children('.people_adult').value);						
-				//}
-		/* 	
+			});		
 		
 	 		console.log(checked_roomno);
-			console.log(checked_addpeople); */
+			console.log(checked_addpeople); 
 			
-			//list를 form에 넣어줌.
+			//3. 리스트를 form에 전달해줌. 클릭할떄마다 갱신.
+			$('input.listattri').remove();
+			for(let i=0; i<checked_roomno.length; i++){
+				$('#sendList').prepend("<input type='hidden' class='listattri' name='reserveInfoDTO["+i+"].room_no' value='"+checked_roomno[i]+"'>");
+				$('#sendList').prepend("<input type='hidden' class='listattri' name='reserveInfoDTO["+i+"].addpeople' value='"+checked_addpeople[i]+"'>'");
+				
+			}
+	
+			
+			//4. ajax로 값을 전달해서 하단에 금액이 뜨도록 설정하기.
+			
 		} 
 	
 	
-		
-	
-	
-	 //2.
 	function changenameofclass(){
-		
-		//var rowData = new array();
-		//var rdArr = new Array();
-		var checkbox = $("input[name=chk_lang]:checked");
+		 
+		let checkbox = $("input[name=chk_lang]:checked");
 		
 		checkbox.each(function(){
 			
-			var container = checkbox.parent().parent().attr('class','roomofdaycontainer_on');
+			let container = checkbox.parent().parent().attr('class','roomofdaycontainer_on');
 			//console.log(container);
 			
 			
@@ -277,48 +176,13 @@
 			checked_addpeople.push($(this).find('.people_adult').val());
 		});
 		
-			 /* for(let i=0; i<checked_info.length; i++){
-			console.log(checked_info[i]);
-			console.log(checked_info[i].children);
-			console.log(checked_info[i].children[0].children[1].value);
-			console.log(checked_info[i].children[0].children[2].value); */
-			
-			//checked_roomno.push(checked_info[i].children('.roomno').value);
-			//checked_addpeople.push(checked_info[i].children('.people_adult').value);						
-			//}
-		
-	
  		console.log(checked_roomno);
 		console.log(checked_addpeople);
 		
-		//list를 form에 넣어줌.
-		
-		
-		
-		
-		
-		//1. 
-		//document.getElementById('sendList').innerHTML=checked_roomno;
-		//document.getElementById('sendList').innerHTML=checked_addpeople;
-		
-		//2. 
-		
+		//
 	
 		
 	}  
-	
-	
-	
-	
-	
-	//다시 : 
-	//채크되면 form으로  데이터가 넘어가고 
-	//예약 버튼을 누르면 데이터가 이동이 됨.
-	
-	
-	
-	
-	
 
 	
 </script>
@@ -422,21 +286,14 @@
 			</div>
 						
 			
-			<!-- <div class="reserveBtn">
-				<input type="button" value="예약하기" onclick="changenameofclass()">	
-						
+			<div class="reserveBtn">													
+				<form method="post" id="sendList" action="<%=request.getContextPath() %>/reserve_payment.do">
+					<!-- 넘어갈 정보가 저장되는 공간(list형식으로 객실번호와 성인 인원수가 넘어감) -->
+					<!-- dto로 넘겨주는 것이기 때문에 name을 dto와 맞춰줘야 하는데 -->				
+					
+					<input type="submit" value="예약하기">						
+				</form>	
 			</div>
-					 -->
-			<form method="post" id="sendList" action="reserve_payment.do">
-				<!-- 넘어갈 정보가 저장되는 공간. -->
-				<!-- dto로 넘겨주는 것이기 때문에 name을 dto와 맞춰줘야 하는데 
-				 -->
-				 <input type="hidden" name="dto[].roomno" value="">
-				
-				
-				<input type="submit" value="예약하기">						
-			</form>	
-			
 	
 	</div><!-- class="reserve_main" -->
 	

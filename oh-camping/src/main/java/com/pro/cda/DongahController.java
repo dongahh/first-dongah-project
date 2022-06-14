@@ -2,11 +2,14 @@ package com.pro.cda;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -100,6 +103,32 @@ public class DongahController {
 		 return "cda/reserve_roomOfDayList_ajax";
 		 
 		
+	}
+	
+	
+	@RequestMapping("reserve_payment.do")
+	//@ResponseBody							
+	public String payment(Model model, CDA_reserveInfoDTO reserveInfoDTO ) {
+		//@ModelAttribute : @RequestParam과 다르게  
+		
+		List<HashMap<String, Integer>> list = new ArrayList<HashMap<String,Integer>>();
+		for(CDA_reserveInfoDTO dto:reserveInfoDTO.getReserveInfoDTO()) {
+			HashMap<String, Integer> result = new HashMap<String, Integer>();
+			result.put("room_no",dto.getRoom_no());
+			result.put("addpeople",dto.getAddpeople());
+			//result.put("addday", dto.getAddday());
+			
+			list.add(result);
+			System.out.println("list.getRoom_no()>>"+dto.getRoom_no());
+		}
+		
+		System.out.println("list>>"+list);
+		
+		model.addAttribute(list);
+		
+		
+		
+		return "cda/payment";
 	}
 	
 }

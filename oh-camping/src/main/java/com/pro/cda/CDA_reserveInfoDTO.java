@@ -4,15 +4,15 @@ import java.util.List;
 
 public class CDA_reserveInfoDTO {
 
-		private long room_no;
+		private int room_no;
 		private int addpeople;
 		private int addday;
 		
 		
-		public long getRoom_no() {
+		public int getRoom_no() {
 			return room_no;
 		}
-		public void setRoom_no(long room_no) {
+		public void setRoom_no(int room_no) {
 			this.room_no = room_no;
 		}
 		public int getAddpeople() {
@@ -29,14 +29,24 @@ public class CDA_reserveInfoDTO {
 		}
 		
 		private List<CDA_reserveInfoDTO> reserveInfoDTO;
+
+
+		public List<CDA_reserveInfoDTO> getReserveInfoDTO() {
+			return reserveInfoDTO;
+		}
+		public void setReserveInfoDTO(List<CDA_reserveInfoDTO> reserveInfoDTO) {
+			this.reserveInfoDTO = reserveInfoDTO;
+		}
 		
-		public CDA_reserveInfoDTO() {	}//기본 생성자
+		
+		
+		/*public CDA_reserveInfoDTO() {	}//기본 생성자
 		
 		public CDA_reserveInfoDTO(List<CDA_reserveInfoDTO> dto) {	//인자 생성자
 			
 			this.reserveInfoDTO = dto;	
 			
-		}
+		}*/
 		
 	
 	
