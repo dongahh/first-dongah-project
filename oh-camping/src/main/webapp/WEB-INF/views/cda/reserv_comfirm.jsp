@@ -10,11 +10,41 @@
 <script type="text/javascript">
 
 
-	/* 초기 화면  */
-	$(document).ready(next_calendar(2022,5));
-	$(document).ready(getInfoList(2022512));
+	/* 초기 화면  */		
+	$(document).ready(function(){
+		next_calendar(2022,5);
+		getInfoList(2022512);
+		
+			
+			
+		
+		
+		/* $('.chk_lang').onclick(function(){
+			//$("input:checkbox[name='chk_lang']").change(function(){
+				
+				//if($(this).is(':checked')){
+					
+					alert('클릭');
+				
+					//$(this).parent().parent().attr('class','roomofdaycontainer_on');
+					//console.log($(this).parent().parent());
+				
+				//}
+				
+				//checkbox.parent().parent().attr('class','roomofdaycontainer_on');
+				
+				
+				
+		});	 */
+		
+	});
+
+												
+		
 	
 	
+	
+	/* calendar가져오는 메서드 */
   	function next_calendar(year, month){
   		var calendar_year = year;
   		var calendar_month = month;
@@ -52,8 +82,12 @@
 			
 		});	//ajax의 end.
 		
+		
 	}  //next_calendar() end.
   	
+	
+	
+	/* 클릭한 날짜에 해당하는 예약정보 리스트 출력 */
 	function getInfoList(num){
 		
 		var dayofcalendar = num;
@@ -80,12 +114,11 @@
 			},
 			error : function(request, status, error){
 				alert('error');
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				
 				
 			}
 		}); 
-	}
+	}//getInfoList(num) end
 	
 /* 	function getInfoList(num){
 		
@@ -108,7 +141,6 @@
 			},
 			error : function(request, status, error){
 				alert('error');
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				
 				
 			}
@@ -116,13 +148,178 @@
 		
 	} */
 	
+	/* 체크 된 값 넘겨주기 */
+	// 결제 페이지로 넘어갈 것 : room_no, addpeople, --> 리스트로 넘겨줘야 하나?
+	
+	/* //채크된 값 클래스 이름 변경
+	$(".checkSe").attr('class','checkSe_on'); */
+	
+	
+	//체크 내용 저장
+/* 	function doSave(){
+		let chk_langs = document.getElementsByName("chk_lang");
+		let checked_langs_items =[];
+		
+		
+		
+		for(let i=0; i<chk_langs.length; i++){
+			if(chk_langs[i].checked){
+				checked_langs_items.push(chk_langs[i].value);
+				
+				
+				
+			}
+		}
+		console.log(checked_langs_items);
+	} */
+	
+	
+	
+	//checkbox 바꾸면 발생하는 이벤트		
+	function checkclick(){
+		//var rowData = new array();
+		//var rdArr = new Array();
+		
+		
+		
+		
+		 //if($("input[name=chk_lang]").is(":checked")){
+			 
+		 	
+			var checkbox = $("input[name=chk_lang]:checked");
+			console.log(checkbox.val());
+			
+			var container = checkbox.parent().parent().attr('class','roomofdaycontainer_on');
+			
+			console.log(container); 
+			/* checkbox.each(function(){
+				
+				var container = checkbox.parent().parent().attr('class','roomofdaycontainer_on');
+				console.log(container); 
+				
+				
+			});*/
+		//}else{
+			
+			
+			var uncheckbox= $("input[name='chk_lang']:not(:checked)");
+			console.log(uncheckbox.val());
+				
+				
+				var container = uncheckbox.parent().parent().attr('class','roomofdaycontainer');
+				console.log(container);
+				
+				
+			
+		//}
+			
+		/* 	//class가  roomofdaycontainer_on로 바뀐 것의 데이터만 가져와 form에 넣어주면 됨.
+			let checked_info = document.getElementsByClassName("roomofdaycontainer_on");
+			
+			let checked_roomno =[];
+			let checked_roomday=[];
+			let checked_addpeople=[];
+			
+			$('.roomofdaycontainer_on').each(function(){
+				
+				checked_roomno.push($(this).find('.roomno').val());
+				//check_roomday = $(this).find('.').val();
+				checked_addpeople.push($(this).find('.people_adult').val());
+			}); */
+			
+				 /* for(let i=0; i<checked_info.length; i++){
+				console.log(checked_info[i]);
+				console.log(checked_info[i].children);
+				console.log(checked_info[i].children[0].children[1].value);
+				console.log(checked_info[i].children[0].children[2].value); */
+				
+				//checked_roomno.push(checked_info[i].children('.roomno').value);
+				//checked_addpeople.push(checked_info[i].children('.people_adult').value);						
+				//}
+		/* 	
+		
+	 		console.log(checked_roomno);
+			console.log(checked_addpeople); */
+			
+			//list를 form에 넣어줌.
+		} 
+	
+	
+		
+	
+	
+	 //2.
+	function changenameofclass(){
+		
+		//var rowData = new array();
+		//var rdArr = new Array();
+		var checkbox = $("input[name=chk_lang]:checked");
+		
+		checkbox.each(function(){
+			
+			var container = checkbox.parent().parent().attr('class','roomofdaycontainer_on');
+			//console.log(container);
+			
+			
+		});
+		
+		//class가  roomofdaycontainer_on로 바뀐 것의 데이터만 가져와 form에 넣어주면 됨.
+		let checked_info = document.getElementsByClassName("roomofdaycontainer_on");
+		
+		let checked_roomno =[];
+		let checked_roomday=[];
+		let checked_addpeople=[];
+		
+		$('.roomofdaycontainer_on').each(function(){
+			
+			checked_roomno.push($(this).find('.roomno').val());
+			//check_roomday = $(this).find('.').val();
+			checked_addpeople.push($(this).find('.people_adult').val());
+		});
+		
+			 /* for(let i=0; i<checked_info.length; i++){
+			console.log(checked_info[i]);
+			console.log(checked_info[i].children);
+			console.log(checked_info[i].children[0].children[1].value);
+			console.log(checked_info[i].children[0].children[2].value); */
+			
+			//checked_roomno.push(checked_info[i].children('.roomno').value);
+			//checked_addpeople.push(checked_info[i].children('.people_adult').value);						
+			//}
+		
+	
+ 		console.log(checked_roomno);
+		console.log(checked_addpeople);
+		
+		//list를 form에 넣어줌.
+		
+		
+		
+		
+		
+		//1. 
+		//document.getElementById('sendList').innerHTML=checked_roomno;
+		//document.getElementById('sendList').innerHTML=checked_addpeople;
+		
+		//2. 
+		
+	
+		
+	}  
+	
+	
+	
+	
+	
+	//다시 : 
+	//채크되면 form으로  데이터가 넘어가고 
+	//예약 버튼을 누르면 데이터가 이동이 됨.
+	
+	
+	
+	
+	
 
-	
-	
-
-	
-	
-	
 	
 </script>
 </head>
@@ -133,77 +330,6 @@
 	<div id="test">
 		<!-- 달력 들어가는 공간 -->	
 	</div>
-	
-	<%-- <c:set var="calInfo" value="${calendarInfo }"/>
-	<div class="yearAndMonth">
-		<input type="button" class="move_month" value="❮❮" >
-		<span>${calInfo.getYear() }</span>
-		<span>${calInfo.getMonth()+1 }</span>
-		<span class="move_month" onclick="next_calendar()">❯❯</span>
-		
-	</div>
-	<br>
-	
-	
-	<div calss="calendar_calendar">
-		<table border="1" cellspacing="0" width="300">
-			<tr class="calendar_th">
-				<th class="sunday">일</th>
-				<th class="weekday">월</th>
-				<th class="weekday">화</th>
-				<th class="weekday">수</th>
-				<th class="weekday">목</th>
-				<th class="weekday">금</th>
-				<th class="saturday">토</th>
-			</tr>
-			
-			
-			<div id="dayofcalendar_dmonth">
-				<!-- 날짜 입력 -->
-				<tr>
-					<!-- 지난달 날짜 -->
-					<c:forEach begin="${calInfo.before_lastday-calInfo.dayofweek+2 }" end="${calInfo.getBefore_lastday() }" var="j">
-						<td calss="calendar_lastDay">${j }</td>
-					</c:forEach>
-					
-					<!-- 이번달 날짜 -->
-					<c:forEach begin="1" end="${calInfo.getLastday() }" var="i">
-						<c:if test="${i<calInfo.date }">
-							<td class="calendar_lastDay">														
-								${i }																	
-							</td>
-						</c:if>
-						
-						<c:if test="${i>=calInfo.date }">
-							<td id="calendar_afterDay">
-							
-								<span onclick="getInfoList(${calInfo.year}${calInfo.month }${i })">								
-										${i }
-										<h4>${calInfo.year}${calInfo.month }${i }</h4>
-								</span>
-						</c:if>
-						
-						
-						<c:if test="${(calInfo.dayofweek+i-1)%7==0 }" >
-							</tr>
-							<tr>
-						</c:if>
-					</c:forEach>
-					
-					<!-- 다음달 날짜 -->
-					<c:forEach begin="1" end="${calInfo.after_dayofweek-calInfo.dayofweek+7 }" var="i">
-						<td>${i }</td>
-						
-						<c:if test="${(calInfo.after_dayofweek+i-1)%7==0 }">
-							</tr>
-							<tr>
-						</c:if>
-					</c:forEach>
-					
-				</tr>
-			</div>
-			</table>
-			</div> --%>
 			
 			
 			<div calss="reserve_info">
@@ -296,10 +422,20 @@
 			</div>
 						
 			
-			<div class="reserveBtn">
-				<input type="button" value="예약하기">			
-			</div>
+			<!-- <div class="reserveBtn">
+				<input type="button" value="예약하기" onclick="changenameofclass()">	
 						
+			</div>
+					 -->
+			<form method="post" id="sendList" action="reserve_payment.do">
+				<!-- 넘어갈 정보가 저장되는 공간. -->
+				<!-- dto로 넘겨주는 것이기 때문에 name을 dto와 맞춰줘야 하는데 
+				 -->
+				 <input type="hidden" name="dto[].roomno" value="">
+				
+				
+				<input type="submit" value="예약하기">						
+			</form>	
 			
 	
 	</div><!-- class="reserve_main" -->

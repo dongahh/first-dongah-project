@@ -16,10 +16,12 @@
 		<c:forEach var="dto" items="${list }">
 			
 		<div class="roomofdayContainer">
-		
-			<div class="checkSe">
-				<input type="checkbox">
-				<input type="hidden">
+			<!-- 넘어갈 값 : 룸번호, 추가 인원수-->
+			<div class="checkSe" >
+				<%-- <input type="checkbox" name="chk_lang" value="${dto.room_no }"> --%>
+				<input type="checkbox" name="chk_lang" class="chk_lang" value="${dto.room_no }" onclick="checkclick()">
+				<input type="hidden" name="roomno" class="roomno" value="${dto.room_no }">
+				
 				
 			</div>
 			
@@ -50,6 +52,38 @@
 				<div>${dto.room_price }</div>
 				
 				
+			</div>
+			
+			<div class="addpeople_roomprice">
+				<div class="addpeople">
+					<div class="peopleLayer">
+						<label>성인</label>
+						<select class="people_adult">
+							<option value="1">1명</option>
+							<option value="2" selected>2명</option>
+							<option value="3">3명</option>
+							<option value="4">4명</option>							
+						</select>
+						
+					</div>
+					
+					<div class="peopleLayer">
+						<label>아동</label>
+						<select class="people_young">
+							<option value="0">0명</option>
+							<option value="1">1명</option>
+							<option value="2">2명</option>
+							<option value="3">3명</option>
+							<option value="4">4명</option>							
+						</select>
+						
+					</div>
+				</div>
+				
+				<div class="roomprice">
+					<div>즉시결제</div>
+					<div>${dto.room_price }</div>
+				</div>
 			</div>
 		</div>
 	
