@@ -6,21 +6,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
+
 </head>
 <body>
-
+		
 		<c:set var="calInfo" value="${calendarInfo }"/>
 		<div class="yearAndMonth">
 			<span class="move_month" onclick="next_calendar(${calInfo.getYear()},${calInfo.getMonth() -1})">❮❮</span>
-			<span>${calInfo.getYear() }</span>
-			<span>${calInfo.getMonth()+1 }</span>
-			<span class="move_month" onclick="next_calendar(${calInfo.getYear()}, ${calInfo.getMonth() +1 })">❯❯</span>			
+			<span class="title_info">${calInfo.getYear() }</span>
+			<span class="title_info">${calInfo.getMonth()+1 }</span>
+			<span class="move_month" onclick="next_calendar(${calInfo.getYear()}, ${calInfo.getMonth() +1 })">❯❯</span>	
+			<span></span>		
 		</div>
 		<br>
 		
 	
-	<div calss="calendar_calendar">
-		<table border="1" cellspacing="0" width="300">
+	<div class="calendar_calendar">
+		<table>
 			<tr class="calendar_th">
 				<th class="sunday">일</th>
 				<th class="weekday">월</th>

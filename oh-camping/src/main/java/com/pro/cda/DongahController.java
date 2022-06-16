@@ -111,20 +111,40 @@ public class DongahController {
 	public String payment(Model model, CDA_reserveInfoDTO reserveInfoDTO ) {
 		//@ModelAttribute : @RequestParam과 다르게  
 		
-		List<HashMap<String, Integer>> list = new ArrayList<HashMap<String,Integer>>();
+		List<CDA_roomDTO> roomList = new ArrayList<CDA_roomDTO>();
+		
+		//List<HashMap<String, Integer>> list = new ArrayList<HashMap<String,Integer>>();
 		for(CDA_reserveInfoDTO dto:reserveInfoDTO.getReserveInfoDTO()) {
-			HashMap<String, Integer> result = new HashMap<String, Integer>();
-			result.put("room_no",dto.getRoom_no());
-			result.put("addpeople",dto.getAddpeople());
-			//result.put("addday", dto.getAddday());
 			
-			list.add(result);
-			System.out.println("list.getRoom_no()>>"+dto.getRoom_no());
+			
+			/*
+			 * HashMap<String, Integer> result = new HashMap<String, Integer>();
+			 * result.put("room_no",dto.getRoom_no());
+			 * result.put("addpeople",dto.getAddpeople()); //result.put("addday",
+			 * dto.getAddday());
+			 */ 
+			
+			//넘겨주는 것은 객실 리스트와 ㅈ
+			// 룸번호에 해댕하는 값을 가져오기 DTO로 받아서 나중에 list에 넣는으로 하자	
+			//1. 
+			
+			 System.out.println("list.getRoom_no()>>"+dto.getRoom_no());
+			 
+			 
+			
+			
+			
+			
+			
+			
+			
 		}
 		
-		System.out.println("list>>"+list);
-		
-		model.addAttribute(list);
+		/*
+		 * System.out.println("list>>"+list);
+		 * 
+		 * model.addAttribute(list);
+		 */
 		
 		
 		
