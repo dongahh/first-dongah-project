@@ -19,6 +19,13 @@ public class CDA_campingDAOimpl implements CDA_campingDAO{
 		
 		
 	}
+	
+	@Override
+	public CDA_roomDTO cda_getreserveRoom(Long num) {
+		
+		return this.sqlSession.selectOne("reserveRoomInfo", num);
+	}
+	
 
 	
 }

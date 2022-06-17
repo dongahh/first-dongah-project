@@ -16,6 +16,11 @@ public class CDA_roomDTO {
 	private int room_mpeople;
 	private int room_price;
 	private int room_possible;
+	
+	
+	private int addday;
+	private int addpeople;
+	
 	public Long getRoom_resdate() {
 		return room_resdate;
 	}
@@ -57,6 +62,20 @@ public class CDA_roomDTO {
 	}
 	public void setRoom_possible(int room_possible) {
 		this.room_possible = room_possible;
+	}
+	
+	
+	public int getAddday() {
+		return addday;
+	}
+	public void setAddday(int addday) {
+		this.addday = addday;
+	}
+	public int getAddpeople() {
+		return addpeople;
+	}
+	public void setAddpeople(int addpeople) {
+		this.addpeople = addpeople;
 	}
 	
 	

@@ -7,6 +7,6 @@ public interface CDA_campingDAO {
 	//예약 리스트 보여주기
 	public List<CDA_roomDTO> cda_getRoomList(Long num);
 	
-	
-	
+	//예약한 정보 리스트
+	public CDA_roomDTO cda_getreserveRoom(Long num);
 }

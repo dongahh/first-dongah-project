@@ -8,6 +8,10 @@
     	<select id="roomofday_list" parameterType="Long" resultType="CDA_roomDTO">
     		select * from camp_room where room_resdate = #{num} order by room_possible, room_name
     	</select>
+    	
+    	<select id="reserveRoomInfo" parameterType="Long" resultType="CDA_roomDTO">
+    		select * from camp_room where room_no=#{num}
+    	</select>
     
     
     
