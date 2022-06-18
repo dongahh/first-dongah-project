@@ -53,11 +53,11 @@
 	/* 결제수단 선택 */
 	div.paymentInforContainer{width:49%; position:relative; display: inline-block; text-align: left; float: right;}
 	div.paymentInforContainer>div.paymothodContainer{width:100%; position:relative;}
-	div.paymothodContainer>div.payinfoTable>table{width:100%; padding:10px 0;}
+	div.paymothodContainer>div.payinfoTable>table{width:100%; padding:0;}
 	
-	div.payinfoTable>table tr td.firstChild{width:100%; padding:3%; position:relative; border-bottom: 1px dashed #A8A8A8; }
+	div.payinfoTable>table tr td.firstChild{width:100%; padding:2%; position:relative; border-bottom: 1px dashed #A8A8A8; }
 	table tr td.firstChild>div span{display: inline-block; bottom: 2;}
-	div.payinfoTable>table tr td.seconChild{width:100%; padding:4%; position:relative; font-size: }
+	div.payinfoTable>table tr td.seconChild{width:100%; padding:2%; position:relative; font-size: }
 	
 	div.paymentInforContainer>div.agreeContainer{whith:100%;} 
 	div.agreeContainer>div.agreeHearLayer{padding:2%; width: 96%; background-color: #F4F4F4; border: 1px solid #E6E5E5; margin: 0px auto; margin-top: 10px;  position: relative; color: #666; font-weight: 700;}
@@ -75,15 +75,81 @@
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
+
+
+	
 	$(document).ready(function(){
 		
+		
+	/* 
+		//전체 금액 가져오는 기능
 		let sum=0;
 	 	$(".price_per_room").each(function(){
 	 		sum = sum + $(".price_per_room").val;
+	 		console.log($(".price_per_room").val);
+	 	
 	 	});
 	 	
-	 	$(".totalPrice").innerHTML='sum';
+	 	alert(sum);
+	 	
+	 	$(".totalPrice").innerHTML=sum; 
+	 	
+	 	 */
+	 	
+	 	 
+	 	//전체 채크
+		$("#checkAll").change(function(){
+			if($("#checkAll").prop("checked")){
+				$("input[name=chk]").prop("checked", true);
+			}else{			
+				$("input[name=chk]").prop("checked", false);
+			}
+		});
+	 	
+	 	//내용보기 클릭시
+	 	//<span class="agreeDetail2">내용보기</span>
+	 	
+	 	$("#refundAgree").css('display','none');
+	 	$("#privateAgree").css('display','none');
+	 	
+	 	$(".agreeDetail2").click(function(){
+	 		if($(".agreeDetail2").text()=="닫기"){
+	 			
+	 			$("#refundAgree").css('display','none');
+	 			$(".agreeDetail2").text('내용보기');
+	 		}else{
+	 			$("#refundAgree").css('display','block');
+		 		$("#privateAgree").css('display','none');
+		 		$(".agreeDetail2").text('닫기');
+	 		}	 			 		
+	 	});
+	 	
+		$(".agreeDetail3").click(function(){
+	 		if($(".agreeDetail3").text()=="닫기"){
+	 			
+	 			$("#privateAgree").css('display','none');
+	 			$(".agreeDetail3").text('내용보기');
+	 		}else{
+	 			$("#privateAgree").css('display','block');
+		 		$("#refundAgree").css('display','none');
+		 		$(".agreeDetail3").text('닫기');
+	 		}	 			 		
+	 	});
+	 	
+	 	
+	 	
+	 	
+	 
 	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
 </head>
 <body>
@@ -190,7 +256,7 @@
 						<tr>
 							<th>픽업 이용 여부</th>
 							<th></th>
-							<td><input color="red" type="text" value="예약자의 이름을 입력해주세요"></td>
+							<td><input style="color:red" type="text" value="예약자의 이름을 입력해주세요"></td>
 						</tr>
 						<tr>
 							<th>도착 예정 시간</th>
@@ -278,7 +344,7 @@
 							<span>모든 규정 및 약관에 동의합니다.</span>
 							<div class="agreeCheck">
 								<label class="allCheck">전체동의
-								<input type="checkbox">
+								<input type="checkbox" id="checkAll">
 								</label> 
 							</div>
 						</div>
@@ -287,7 +353,7 @@
 							<span>(필수)예약자, 이용자는 미성년자가 아닙니다.</span>
 							<div class="agreeCheck">
 								<label class="Check1">확인
-								<input type="checkbox">
+								<input type="checkbox" name="chk">
 								</label> 
 							</div>
 						</div>
@@ -299,13 +365,13 @@
 								<span class="agreeDetail2">내용보기</span>
 								<span>&nbsp;|&nbsp;</span>
 								<label class="Check2">확인
-								<input type="checkbox">
+								<input type="checkbox" name="chk">
 								</label> 
 							</div>
 						</div>
 						
 						<!-- 환불 규정 내용 -->
-						<div class="refundAgreeConainer">
+						<div class="refundAgreeConainer" id="refundAgree">
 							<div>
 								* 펜션의 취소수수료는 이용 일자별로 적용되어 합산됩니다.
 								<br>
@@ -379,13 +445,13 @@
 								<span class="agreeDetail3">내용보기</span>
 								<span>&nbsp;|&nbsp;</span>
 								<label class="check3">확인
-								<input type="checkbox">
+								<input type="checkbox" name="chk">
 								</label> 
 							</div>
 						</div>
 						
 						<!-- 개인정보 규정 내용 -->
-						<div class = "refundAgreeConainer">
+						<div class = "refundAgreeConainer" id="privateAgree">
 							<div>
 								<b>가평 핀란드캠핑성펜션&글램핑(온수수영장)</b>(은)는 서비스 제공 및 예약 관리 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 							</div>
