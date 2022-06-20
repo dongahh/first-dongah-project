@@ -18,7 +18,7 @@
 	div{display:block;}
 	
 	/* claendar 부분 + 설명 */
-	div.container_calendar_info{width:90%; text-align:center;  }
+	div.container_calendar_info{width:100%; text-align:center;  }
 	
 	/* calendar 부분*/
 	div#reserve_calendar{
@@ -28,9 +28,9 @@
 	div.calendar_calendar{display:inline-block; width:100%}
 	div.calendar_calendar>table{border:1px solid #8F8F90; width:100%; border-spacing:0; }
 	div.calendar_calendar>table tr th{line-height: 3; background-color:#E4E4E4; font-size: 10; }
-	div.calendar_calendar>table tr th.sunday{color:red;}
-	div.calendar_calendar>table tr th.saturday{color:blue;}	
-	div.calendar_calendar>table tr td{line-height: 2.2; }
+	.sunday{color:red;}
+	.saturday{color:blue;}	
+	div.calendar_calendar>table tr td{line-height: 2.6; }
 	
 	
 	
@@ -38,8 +38,8 @@
 		
 	/*기본 예약 정보 부분*/
 	div.reserve_info{
-		width:52%; position:relative; text-align:center; display:inline-block;}
-	div.reserve_info>h5.info_today{font-size: 7px; color:#8F8F90; padding-bottom: 10px; }
+		width: 52%; position:relative; text-align:center; display:inline-block; }
+	div.reserve_info>h5.info_today{font-size: 7px; color:#8F8F90; padding-bottom: 10px; margin-top: 21px;}
 	div.reserve_info>div.reserve_info_content{border:1px solid #8F8F90; width:350px; margin-left:10px; display: inline-block; width:100%;}
 	div.reserve_info_content>h4{line-height: 2.5; padding 2px;}
 	div.reserve_info_content>table{display:inline-block; border-spacing:0;}
@@ -47,30 +47,37 @@
 	
 	
 	/* 날짜별 객실 리스트 */
-	div#roomofdaylist_main{width:100%; position:relative; margin-top: 30px; margin-left: 20px;}
-	div.roomword{font-weight: bold; text-align: left; padding-bottom: 20px;}
-	div.roomofdayContainer, div.roomofdayContainer_on, div.roomofdayContainer_no{width:86%; border-bottom: 1px solid #8F8F90; display: table; padding:2px; }
-	div.roomofdayContainer>div{display: inline-table; }
+	div#roomofdaylist_main{width:100%; position:relative;}
+	div.roomword{border-bottom: 1px solid #404040; color:#404040; font-size: 16px; font-weight: 700; padding:10px 10px 10px 5px; position:relative;}
+	
+	div.roomofdayContainer, div.roomofdayContainer_on, div.roomofdayContainer_no{width:96%; border-bottom: 1px solid #8F8F90; display: table; padding:12px 2%; }
+	/* div.roomofdayContainer>div{display: inline-table; }
 	div.roomofdayContainer_no>div{display: inline-table; }
-	div.roomofdayContainer_on>div{display: inline-table; }
-	div.checkSe{display: table-cell; width: 4%;}
-	div.checkSe>input.chk_lang{width:15px; height: 15px;  position:relative; top:28px;}
+	div.roomofdayContainer_on>div{display: inline-table; } */
+	div.checkSe{display: table-cell; width: 4%; vertical-align: middle }
+	div.checkSe>input.chk_lang{width:15px; height: 15px;  position:relative;}
+	
+	
 	
 	div.roomInfoContent{display: table-cell; width:40%;}
+	div.roomInfoContent>div.roomimage{display: inline-block; vertical-align: middle;}
+	.roomListImage{width:142px; height: 99px; position: relative; display: inline-block; margin-right: 10px;}
+	div.roomInfoContent>div.roomnamelayer{display:inline-block; vertical-align: middle;}
+	
 	div.roomposs>span.yes_word{pdding 2px 3px; height: 14px; font-size: 11px; background-color: #8FC31F; color: #FFF; display: inline-block;}
 	div.roomposs>span.no_word{pdding 2px 3px; height: 14px; font-size: 11px; background-color: #FF6559; color: #FFF; display: inline-block;}
 	
 	
 	
 	div.addpeople_roomprice{display: table-cell; width:45%; }
-	div.addpeople_roomprice>div.addpeople{display:table-cell; width:70%; position:relative; top:28px;}
-	div.addpeople>div{display: inline-block; padding:20px;}
-	div.addpeople label {display: block;}
-	div.addpeople_roomprice>div.roomprice{display:table-cell; width:30%; position:relative; top:28px;}
+	div.addpeople_roomprice>div.addpeople{display:table-cell; width:70%; position:relative; }
+	div.addpeople>div{display: inline-block; padding:20px; vertical-align: middle;}
+	/* div.addpeople label {display: block;} */
+	div.addpeople_roomprice>div.roomprice{display:table-cell; width:30%; position:relative;}
 	
 	
 	/* 결제 금액 확인 */
-	div.total_priceInfo{width:90%; text-align:center; position: relative; margin-top: 50px;}
+	div.total_priceInfo{width:100%; text-align:center; position: relative; margin-top: 50px;}
 	div.total_priceInfo>div{display: inline-block;}
 	div.total_priceInfo>div.total_price{width:45%;}
 	div.total_price>table{border:2px solid #8F8F90; width:100%; border-spacing:2px;}

@@ -27,6 +27,16 @@
 				
 					<div class="roomInfoContent"> 
 						<div class="roomimage">
+							
+							<c:if test="${dto.room_name.substring(0,2) eq'계곡'}" >
+								<img class="roomListImage" src="<%=request.getContextPath() %>/resources/image/valley.jpg" >	
+													
+							</c:if>
+							
+							<c:if test="${dto.room_name.substring(0,2) eq'대형'}">
+								<img class="roomListImage" src="<%=request.getContextPath() %>/resources/image/large.jpg" >	
+													
+							</c:if>
 						</div>
 						
 						<div class="roomnamelayer">
@@ -79,6 +89,7 @@
 				</div>				
 			</c:if>
 		
+			<!-- 이미 예약 완료된 객실 -->
 			<c:if test="${dto.room_possible ==1 }">
 							
 				<div class="roomofdayContainer_no">

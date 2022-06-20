@@ -103,14 +103,22 @@ public class CalendarDTO {
 			
 			Calendar cal = Calendar.getInstance();
 			
+			
+			/*
+			 * cal.set(year,month,date); SimpleDateFormat msdf = new SimpleDateFormat("MM");
+			 * SimpleDateFormat dsdf = new SimpleDateFormat("dd");
+			 * 
+			 * System.out.println("한자리수 월>>"+month); month
+			 * =Integer.parseInt(msdf.format(cal)); System.out.println("두자리수 월>>"+month);
+			 */
+			 
+			 
+			
 			//시작일의 요일을 받아오기 위해 date에 1을 입력.
 			cal.set(year, month, 1);
 			this.dayofweek = cal.get(Calendar.DAY_OF_WEEK);	//일:1, 토:7
 			this.lastday = cal.getActualMaximum(Calendar.DAY_OF_MONTH); //해당 월의 마지막 일
 		
-			
-			//SimpleDateFormat msdf = new SimpleDateFormat("MM");
-			//SimpleDateFormat dsdf = new SimpleDateFormat("dd");
 			
 			
 			//이전 달
