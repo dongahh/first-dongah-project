@@ -79,6 +79,20 @@
 	div.refundAgreeConainer table{width:100%; position: relative; border: 1px solid #E6E5E5; text-align: center; margin: 10px auto; border-spacing:0px;}
 	div.refundAgreeConainer table th{ background-color:#F4F4F4; border-collapse:separate; border-color: grey; font-size: 10px; }
 	div.refundAgreeConainer table td{border: 1px solid #E6E5E5; font-size: 10px; line-height: 2;}
+	
+	
+	/* 팝업 창 */
+	
+	div.popupContainer{width:450px; height: 500px; border: 1px solid black; position:fixed; top:20%; left:30%;  background: #fff;}
+	div.popupContainer>div.pop_title{width:96%; font-size: 20px; font-weight: 700; margin:0px auto; border-bottom: 1px solid #E6E5E5; text-align: center; padding:19px 0px; }
+	div.popupContainer>div.pop_content{width:96%; position:relative; max-height: 200px; overflow: auto; margin:2%; }
+	div.popupContainer>div.pop_content>table{padding: 10px 0px; width: 90%; margin: 0% 5%; border-bottom:1px solid #E6E5E5; }
+	div.popupContainer>div.pop_content>table tr th{line-height: 2; text-align: left;}
+	div.popupContainer>div.pop_content>table tr td{line-height: 2; text-align: right;}
+	div.popupContainer>div.pop_layer{width:91%; background-color: #E6E5E5; padding:20px; word-spacing: normal; position: relative; margin:0;}
+	div.popupContainer>div.pop_cancelBtn{width:100%;}
+	div.pop_cancelBtn>.popbtn{width:49.5%; height: 48px; border: none; background-color: #FF6559; COLOR: #FFF; FONT-SIZE: 16px; font-weight: 400;}
+
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
@@ -144,14 +158,22 @@
 		 		$(".agreeDetail3").text('닫기');
 	 		}	 			 		
 	 	});
-	 
+
 	});	
+	
+	//팝업
+	function showPopup(){
+		$(".popupContainer").css('display',"block");
+		
+	}
 	
 </script>
 </head>
 <body>
+
 	<form action="" method="post" >
 	<c:set var="roomList" value="${roomList}"/>
+
 	
 		<div class="reserve_paymentMainContainer">
 			<div class="payment_roomInfo">
@@ -506,8 +528,9 @@
 						</div>
 					</div>
 					
-					<div class="paybtnContainer">
-						<input type="submit" value="결제하기">
+					<div class="paybtnContainer" >
+						<!-- <input type="submit" value="결제하기"> -->
+						<div class="popupbtn" onclick="showPopup()">팝업열기</div>
 					</div>
 					
 					
@@ -517,10 +540,72 @@
 		
 		</div>
 	</div> <!-- class:reserve_paymentContainer div end-->
-		
-		
-		
+	
+	<!-- 팝업 -->
+		<div class="popupContainer" style="display:none">
+			<c:if test="${!empty roomList }">
+				<div class="pop_title">
+					예약확인
+				</div>
+				<div class="pop_content">
+					<c:forEach items="${roomList }" var="poproomlist">
+						<table>
+							<tr>
+								<th>이용일</th>
+								<td>${poproomlist.getRoom_resdate().substring(0,4) }년 ${poproomlist.getRoom_resdate().substring(5,7) }월 ${poproomlist.getRoom_resdate().substring(8,10) }일 </td>					
+							</tr>
+							<tr>
+								<th>펜션명</th>
+								<td>가평 오캠핑(온수 수영장)</td>					
+							</tr>
+							<tr>
+								<th>객실명</th>
+								<td>${poproomlist.getRoom_name() }</td>					
+							</tr>
+							<tr>
+								<th>인원</th>
+								<td>${poproomlist.getAddpeople() }명</td>					
+							</tr>
+							
+						</table>
+					</c:forEach>
+					
+				</div>
+				<div class="pop_layer">
+					- 이용일이 오늘입니다. 당일예약의 경우 예약변경, 취소 및 환불이 불가합니다.
+					<br><br><span style="color:red">- 취소수수료는 이용일 기준으로 적용됩니다.</span>
+					<br><br>- 동일 객실이 펜션 상황에 따라 중복으로 예약될 경우 먼저 예약된 것이 우선입니다.
+					
+				</div>
+				
+				<div class="pop_cancelBtn">
+					<input class="popbtn" type="button" value="취소">
+					<input class="popbtn" type="submit" value="동의하고 결제 진행">
+					<div>
+						<!-- 사용자 정보 -->
+						<input type="hidden" name="customername" value="">
+						<input type="hidden" name="customerphone" value="">
+						<input type="hidden" name="customerintime" value="">
+						<input type="hidden" name="customerrequest" value="">
+						<input type="hidden" name="customereara" value="">
+						
+						<!-- 객실정보:이용일, 객실명, 인원  => 이건 따로 리스트로 받아와야하나,,,,,,,,,,,,-->
+						
+						<!-- 결제정보 -->
+						<input type="hidden" name="customertotalprice" value="">
+					</div>
+				</div>
+				<!-- <div class="pop_payBtn"></div> -->
+			
+			</c:if>
+		</div>
+	
 	</form>
+	
+	
+		
+	
+	
 
 </body>
 </html>

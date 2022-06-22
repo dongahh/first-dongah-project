@@ -41,6 +41,9 @@ public class DongahController {
 				cal.get(Calendar.DATE));
 
 		model.addAttribute("calendarInfo", calendarData);
+		
+		
+		//
 
 		return "cda/reserv_comfirm";
 	}

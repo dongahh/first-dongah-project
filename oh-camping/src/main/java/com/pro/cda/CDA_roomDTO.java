@@ -19,7 +19,7 @@ public class CDA_roomDTO {
 	
 	
 	private int addday;
-	private int addpeople;
+	private int addpeople;	//추가인원수 아니고 객실당 예약 인원수!!
 	private int addprice;
 	
 	
