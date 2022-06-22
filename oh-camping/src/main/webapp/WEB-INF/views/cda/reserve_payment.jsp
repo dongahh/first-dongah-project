@@ -22,9 +22,16 @@
 	div.payment_roomInfo>table{position:relative; width:100%; border-spacing:0; margin-bottom: 30px;}	
 	div.payment_roomInfo>table tr{display:table-row}
 	div.payment_roomInfo>table tr th{
-		border-bottom: 1px solid #A8A8A8; padding: 16px 0px 15px 14px; text-align: center; color: #666; font-weight: 700; vertical-align: middle;}
+		border-bottom: 1px solid #A8A8A8; padding: 16px 0px 15px 20px; text-align: left; color: #666; font-weight: 700; vertical-align: middle;}
 	div.payment_roomInfo>table tr td{
 		border-bottom: 1px solid #A8A8A8; padding: 16px 0px 0px 14px; text-align: left; position: relative; font-size: 12px; vertical-align: middle; letter-spacing: 0px;}
+	div.roomimage{display: inline-block; vertical-align: middle;}
+	.roomListImage{width:142px; height: 99px; position: relative; display: inline-block; margin-right: 10px;}
+	.roomInfo{display:inline-block; vertical-align: middle;}
+	div.table2>table{position:relative; width:100%; border-spacing:0; line-height: 1;}
+	div.table2>table tr th{border-bottom: 0px solid #A8A8A8; padding: 0px 0px 10px 0px; mar line-height: 1; }
+	div.table2>table tr td{border-bottom: 0px solid #A8A8A8; padding: 0px 0px 10px 14px; line-height: 1;}
+	
 	
 	/* 결제 금액 정보 */
 	div.payforpriceContainer{width:100%; left:50%;}
@@ -81,20 +88,22 @@
 	$(document).ready(function(){
 		
 		
-	/* 
+	  
 		//전체 금액 가져오는 기능
-		let sum=0;
-	 	$(".price_per_room").each(function(){
-	 		sum = sum + $(".price_per_room").val;
-	 		console.log($(".price_per_room").val);
+		let sum = 0;
+		
+		$(".price_per_room").each(function(){
+			
+			console.log($(this).text());
+			sum = parseInt(sum) + parseInt($(this).text());		
+		});	
+			
+			console.log(sum);
+
+	 	$(".totalPrice").empty();
+	 	$(".totalPrice").append(sum); 
 	 	
-	 	});
-	 	
-	 	alert(sum);
-	 	
-	 	$(".totalPrice").innerHTML=sum; 
-	 	
-	 	 */
+
 	 	
 	 	 
 	 	//전체 채크
@@ -135,20 +144,8 @@
 		 		$(".agreeDetail3").text('닫기');
 	 		}	 			 		
 	 	});
-	 	
-	 	
-	 	
-	 	
 	 
-	});
-	
-	
-	
-	
-	
-	
-	
-	
+	});	
 	
 </script>
 </head>
@@ -171,17 +168,29 @@
 					<c:forEach  var="roomlist" items="${roomList }">
 						<tr>
 							<td>
-								<div>${roomlist.room_resdate }</div>
-								<div>${roomlist.room_name }</div>
-								<div>(기준 ${roomlist.room_people }명/최대${roomlist.room_mpeople }명)</div>
-								<br>
-								<div>인원:&nbsp; ${roomlist.addpeople }명</div>
+								<div class="roomimage">
+									<c:if test="${roomlist.room_name.substring(0,2) eq'계곡'}" >
+										<img class="roomListImage" src="<%=request.getContextPath() %>/resources/image/valley.jpg" >	
+															
+									</c:if>
+									
+									<c:if test="${roomlist.room_name.substring(0,2) eq'대형'}">
+										<img class="roomListImage" src="<%=request.getContextPath() %>/resources/image/large.jpg" >	
+															
+									</c:if>
+								</div>
 								
+								<div class="roomInfo">
+									<div>${roomlist.room_resdate.substring(0,10) }</div>
+									<div>${roomlist.room_name }</div>
+									<div>(기준 ${roomlist.room_people }명/최대${roomlist.room_mpeople }명)</div>
+									<br>
+									<div>인원:&nbsp; ${roomlist.addpeople }명</div>
+								</div>
 							</td>
 							<td>
-								<div>${roomlist.room_resdate/1000 }.
-									<%-- ${roomlist.room_resdate.substring(4,6) }. --%>
-									<!-- 월/일 추가해야함 -->
+								<div>${roomlist.room_resdate.substring(0,10)}.
+									
 								
 								</div>
 								<div>
@@ -191,20 +200,22 @@
 							</td>
 							
 							<td>
-								<table>
-									<tr>
-										<td>객실금액</td>
-										<th>${roomlist.room_price }</th>										
-									</tr>
-									<tr>
-										<td>추가금액</td>
-										<th>${roomlist.addpeople*20000 }</th>
-									</tr>
-									<tr>
-										<td>결제금액</td>
-										<th class="price_per_room">${roomlist.room_price+roomlist.addpeople*20000 }</th>
-									</tr>
-								</table>
+								<div class="table2">
+									<table>
+										<tr>
+											<td>객실금액</td>
+											<th>${roomlist.room_price }</th>										
+										</tr>
+										<tr>
+											<td>추가금액</td>
+											<th>${roomlist.addprice }</th>
+										</tr>
+										<tr>
+											<td>결제금액</td>
+											<th class="price_per_room">${roomlist.room_price+roomlist.addpeople*20000 }</th>
+										</tr>
+									</table>
+								</div>
 							
 							</td>
 						</tr>

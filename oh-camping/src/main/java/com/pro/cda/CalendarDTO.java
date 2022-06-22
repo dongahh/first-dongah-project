@@ -102,16 +102,6 @@ public class CalendarDTO {
 			this.date = date;
 			
 			Calendar cal = Calendar.getInstance();
-			
-			
-			/*
-			 * cal.set(year,month,date); SimpleDateFormat msdf = new SimpleDateFormat("MM");
-			 * SimpleDateFormat dsdf = new SimpleDateFormat("dd");
-			 * 
-			 * System.out.println("한자리수 월>>"+month); month
-			 * =Integer.parseInt(msdf.format(cal)); System.out.println("두자리수 월>>"+month);
-			 */
-			 
 			 
 			
 			//시작일의 요일을 받아오기 위해 date에 1을 입력.

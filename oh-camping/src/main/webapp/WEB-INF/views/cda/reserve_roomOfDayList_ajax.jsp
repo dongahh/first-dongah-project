@@ -55,16 +55,30 @@
 					
 				
 					
-					<div class="addpeople_roomprice">
+					<div id="${dto.room_no }" class="addpeople_roomprice">
 						<div class="addpeople">
-							<div class="peopleLayer">
+							<div class="peopleLayer" >
 								<label>성인</label>
-								<select class="people_adult">
-									<option value="1">1명</option>
-									<option value="2" selected>2명</option>
-									<option value="3">3명</option>
-									<option value="4">4명</option>							
-								</select>
+								
+								<c:if test="${dto.room_name.substring(0,2) eq'계곡'}" >
+									<select class="people_adult" onchange="peopleChange_valley(${dto.room_no })" >
+										<option value="1">1명</option>
+										<option value="2" selected>2명</option>
+										<option value="3">3명</option>
+										<option value="4">4명</option>							
+									</select>		
+								</c:if>
+								<c:if test="${dto.room_name.substring(0,2) eq'대형'}" >
+									<select class="people_adult" onchange="peopleChange_large(${dto.room_no })">
+										<option value="1">1명</option>
+										<option value="2" >2명</option>
+										<option value="3">3명</option>
+										<option value="4" selected>4명</option>	
+										<option value="5">5명</option>
+										<option value="6">6명</option>						
+									</select>		
+								</c:if>
+								
 								
 							</div>
 							
@@ -75,7 +89,8 @@
 									<option value="1">1명</option>
 									<option value="2">2명</option>
 									<option value="3">3명</option>
-									<option value="4">4명</option>							
+									<option value="4">4명</option>	
+									<option value="5">5명</option>						
 								</select>							
 							</div>
 						</div>
@@ -83,7 +98,12 @@
 						
 						<div class="roomprice">
 							<div>즉시결제</div>
-							<div>${dto.room_price }</div>
+							<div class="eachRoomPrice">${dto.room_price }</div>
+							<div class="hiddenPrice" style="display:none" >
+								<div>현장결제</div>
+								<div class="addPeoplePrice">0</div>
+							
+							</div>
 						</div>
 					</div>
 				</div>				
@@ -101,6 +121,15 @@
 				
 					<div class="roomInfoContent"> 
 						<div class="roomimage">
+						<c:if test="${dto.room_name.substring(0,2) eq'계곡'}" >
+								<img class="roomListImage" src="<%=request.getContextPath() %>/resources/image/valley.jpg" >	
+													
+							</c:if>
+							
+							<c:if test="${dto.room_name.substring(0,2) eq'대형'}">
+								<img class="roomListImage" src="<%=request.getContextPath() %>/resources/image/large.jpg" >	
+													
+							</c:if>
 						</div>
 						
 						<div class="roomnamelayer">

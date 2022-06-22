@@ -7,6 +7,7 @@ public class CDA_reserveInfoDTO {
 		private int room_no;
 		private int addpeople;
 		private int addday;
+		private int addprice;
 		
 		
 		public int getRoom_no() {
@@ -37,6 +38,15 @@ public class CDA_reserveInfoDTO {
 		public void setReserveInfoDTO(List<CDA_reserveInfoDTO> reserveInfoDTO) {
 			this.reserveInfoDTO = reserveInfoDTO;
 		}
+		public int getAddprice() {
+			return addprice;
+		}
+		public void setAddprice(int addprice) {
+			this.addprice = addprice;
+		}
+		
+		
+		
 		
 		
 		

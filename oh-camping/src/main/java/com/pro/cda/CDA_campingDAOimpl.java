@@ -13,19 +13,17 @@ public class CDA_campingDAOimpl implements CDA_campingDAO{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<CDA_roomDTO> cda_getRoomList(Long num) {
-		
-		return this.sqlSession.selectList("roomofday_list",num);
-		
-		
-	}
-	
-	@Override
 	public CDA_roomDTO cda_getreserveRoom(Long num) {
 		
 		return this.sqlSession.selectOne("reserveRoomInfo", num);
 	}
-	
 
+	@Override
+	public List<CDA_roomDTO> cda_getRoomList(String date) {
+		// TODO Auto-generated method stub
+		return this.sqlSession.selectList("reserveRoomList",date);
+	}
+	
+	
 	
 }

@@ -9,7 +9,7 @@ public class CDA_roomDTO {
 	//room_no 시퀀스로 변경?
 	//room_table에 image 추가.
 
-	private Long room_resdate;
+	private String room_resdate;
 	private Long room_no;
 	private String room_name;
 	private int room_people;
@@ -20,11 +20,14 @@ public class CDA_roomDTO {
 	
 	private int addday;
 	private int addpeople;
+	private int addprice;
 	
-	public Long getRoom_resdate() {
+	
+	
+	public String getRoom_resdate() {
 		return room_resdate;
 	}
-	public void setRoom_resdate(Long room_resdate) {
+	public void setRoom_resdate(String room_resdate) {
 		this.room_resdate = room_resdate;
 	}
 	public Long getRoom_no() {
@@ -77,7 +80,14 @@ public class CDA_roomDTO {
 	public void setAddpeople(int addpeople) {
 		this.addpeople = addpeople;
 	}
+	public int getAddprice() {
+		return addprice;
+	}
+	public void setAddprice(int addprice) {
+		this.addprice = addprice;
+	}
 	
+
 	
 	
 	
