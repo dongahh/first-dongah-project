@@ -552,6 +552,7 @@
 						<table>
 							<tr>
 								<th>이용일</th>
+								<h2></h2>
 								<td>${poproomlist.getRoom_resdate().substring(0,4) }년 ${poproomlist.getRoom_resdate().substring(5,7) }월 ${poproomlist.getRoom_resdate().substring(8,10) }일 </td>					
 							</tr>
 							<tr>

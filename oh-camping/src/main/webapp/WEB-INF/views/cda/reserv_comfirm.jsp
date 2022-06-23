@@ -129,43 +129,7 @@
 		
 		
 	}  //next_calendar() end.
-  	
-	
-	
-	/* 클릭한 날짜에 해당하는 예약정보 리스트 출력 
-	function getInfoList(num){
-		
-		var dayofcalendar = num;
-		
-		$.ajax({
-			
-			type: "post",
-			url: "reserve_getInfo.do",
-			dataType: "text",			
-			data: {dayofcalendar:dayofcalendar},			
-			success: function(data){
-				
-				//var table = document.getElementById("")
-				
-				//alert('성공');
-				console.log('성공');
-				console.log(data);
-				
-				$("#roomofdaylist_main").html(data);
-				
-				
-						
-				
-			},
-			error : function(request, status, error){
-				alert('error');
-				
-				
-			}
-		}); 
-	}//getInfoList(num) end
-	
-	*/
+
 	
 	
 	/* 클릭한 날짜에 해당하는 예약정보 리스트 출력 */
@@ -287,8 +251,8 @@
 				//check_roomday = $(this).find('.roomno').val();				
 				checked_addpeople.push($(this).find('.people_adult').val());
 				
-				checked_roomprice.push($(this).find('.eachRoomPrice').text());
-				checked_addprice.push($(this).find('.addPeoplePrice').text());
+				checked_roomprice.push($(this).find('.eachRoomPrice_hidden').text());
+				checked_addprice.push($(this).find('.addPeoplePrice_hidden').text());
 				
 				console.log($(this).find('.eachRoomPrice').text());
 			});		
@@ -318,21 +282,21 @@
 				add_price =parseInt(add_price) + parseInt(checked_addprice[i]);				
 			}
 			
+			let total_price = room_price+add_price
 			
 			console.log(add_price);
 			$('.totalpriceinfo_roomprice').empty();
-			$('.totalpriceinfo_roomprice').prepend(room_price);
+			$('.totalpriceinfo_roomprice').prepend(formatNumber(room_price)+'원');
 			
 			
 			
 			$('.totalpriceinfo_addprice').empty();
-			$('.totalpriceinfo_addprice').prepend(add_price);
+			$('.totalpriceinfo_addprice').prepend(formatNumber(add_price)+'원');
 			
-			/*   if('.totalpriceinfo_addprice:empty'){
-				$('.totalpriceinfo_addprice').empty();
-				$('.totalpriceinfo_addprice').prepend(0);
-			}  */
-			 
+			$('.totalpriceinfo_totalprice').empty();
+			$('.totalpriceinfo_totalprice').prepend(formatNumber(total_price)+'원');
+			
+		
 			
 			
 			
@@ -354,10 +318,17 @@
 				
 				$('#'+num).find(".hiddenPrice").css('display','block');
 				
-				$('#'+num).find(".addPeoplePrice").append(people_adult);
+				
+				//console.log(formatNumber(people_adult));
+				$('#'+num).find(".addPeoplePrice_hidden").append(people_adult);			
+				$('#'+num).find(".addPeoplePrice").append(formatNumber(people_adult)+'원');
+				
+				//	
+				
 			}else{
 				$('#'+num).find(".hiddenPrice").css('display','block');
-				$('#'+num).find(".addPeoplePrice").append(0);
+				$('#'+num).find(".addPeoplePrice").append('0원');
+				$('#'+num).find(".addPeoplePrice_hidden").append(0);	
 			}
 			saveInfo();
 			
@@ -387,7 +358,7 @@
 				
 				$('#'+num).find(".hiddenPrice").css('display','block');
 				
-				$('#'+num).find(".addPeoplePrice").append(people_adult);
+				$('#'+num).find(".addPeoplePrice").append($.number(people_adult));
 			}else{
 				$('#'+num).find(".addPeoplePrice").append(0);
 			}
@@ -396,43 +367,13 @@
 			
 		}
 		
-		
-		
-		
-/* 	
-	function changenameofclass(){
-		 
-		let checkbox = $("input[name=chk_lang]:checked");
-		
-		checkbox.each(function(){
-			
-			let container = checkbox.parent().parent().attr('class','roomofdayContainer');
-			//console.log(container);
+		//포멧함수
+		function formatNumber(num){
+			return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			
 			
-		});
+		}
 		
-		//class가  roomofdaycontainer_on로 바뀐 것의 데이터만 가져와 form에 넣어주면 됨.
-		let checked_info = document.getElementsByClassName("roomofdayContainer_on");
-		
-		let checked_roomno =[];
-		let checked_roomday=[];
-		let checked_addpeople=[];
-		
-		$('.roomofdayContainer_on').each(function(){
-			
-			checked_roomno.push($(this).find('.roomno').val());
-			//check_roomday = $(this).find('.').val();
-			checked_addpeople.push($(this).find('.people_adult').val());
-		});
-		
- 		console.log(checked_roomno);
-		console.log(checked_addpeople);
-		
-		//
-	
-		
-	}   */
 
 	
 </script>
@@ -488,33 +429,28 @@
 					<table>
 						<tr>
 							<th></th>
-							<th>현장결제</th>
+							
 							<th>즉시결제</th>
 						</tr>
 						
 						<tr>
 							<th>객실 이용 요금</th>
-							<td>-</td>
+							
 							<td class="totalpriceinfo_roomprice">0원</td>
 						</tr>
 						
 						<tr>
 							<th>인원 추가 요금</th>
-							<td>0원</td>
+							
 							<td class="totalpriceinfo_addprice">0원</td>
 						</tr>
 						
 						<tr>
-							<th>합계</th>
-							<td>0원</td>
+							<th>최종 이용 금액</th>
+							
 							<td class="totalpriceinfo_totalprice">0원</td>
 						</tr>
-						
-						<tr>
-							<th>최종 이용금액</th>
-							<td></td>
-							<td>0원</td>
-						</tr>															
+																				
 					</table>
 					
 				</div>
