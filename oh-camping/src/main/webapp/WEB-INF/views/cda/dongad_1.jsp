@@ -22,6 +22,10 @@
 	
 	<input type="checkbox" name="chk" class="chk" value="1">
 	
+	<input type="button" value ="클릭" onclick="location='<%=request.getContextPath() %>/reserve_reserve.do'">
+	
+	
+	
 	
 </body>
 </html>

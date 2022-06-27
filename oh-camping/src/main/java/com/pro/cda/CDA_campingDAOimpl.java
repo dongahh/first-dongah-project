@@ -24,6 +24,39 @@ public class CDA_campingDAOimpl implements CDA_campingDAO{
 		return this.sqlSession.selectList("reserveRoomList",date);
 	}
 	
+
+	@Override
+	public int cda_getmemmo(String id) {
+		
+		return this.sqlSession.selectOne("getmemno", id);
+	}
 	
+	@Override
+	public int cda_paymentConfirm(CDA_paymentDTO paymentDTO) {
+		
+		return this.sqlSession.insert("reservePayment", paymentDTO);
+	}
+	
+	@Override
+	public int cda_getpatmentno() {
+		
+		return this.sqlSession.selectOne("getpaymentno");
+	}
+
+	@Override
+	public int cda_reserveComfirmdetail(CDA_paymentdetailDTO paymentdetailDTO) {
+		
+		return this.sqlSession.insert("orderDetail", paymentdetailDTO);
+	}
+	
+	
+	
+	////////////////////////////////////////////////////////////////////
+	//id 세션으로 정보 받아오기(나중에 삭제!!!!!)
+	@Override
+	public testidDTO gettestid(String id) {
+		
+		return this.sqlSession.selectOne("testid", id);
+	}
 	
 }

@@ -39,10 +39,11 @@
 					<c:forEach begin="${calInfo.before_lastday-calInfo.dayofweek+2 }" end="${calInfo.getBefore_lastday() }" var="j">
 					
 						
-					
+						<!-- 일요일 -->
 						<c:if test="${calInfo.before_lastday-calInfo.dayofweek+2==j }">
 							<td class="${calInfo.year}${calInfo.month-1 }${j }"><span class="sunday" class="${calInfo.year}${calInfo.month-1 }${j }" onclick="getInfoList(${calInfo.year},${calInfo.month-1 },${j } )">${j }</span></td>
 						</c:if>
+						<!--  -->
 						<c:if test="${calInfo.before_lastday-calInfo.dayofweek+2!=j }">
 							<td class="${calInfo.year}${calInfo.month-1 }${j }"><span class="${calInfo.year}${calInfo.month-1 }${j }"onclick="getInfoList(${calInfo.year},${calInfo.month-1 },${j } )">${j }</span></td>
 						</c:if>
@@ -53,13 +54,13 @@
 					
 						<!-- 금요일의 경우 -->
 						<c:if test="${(calInfo.dayofweek +i)%7==0 }">
-							<td class="${calInfo.year}${calInfo.month }${i }"><span onclick="getInfoList(${calInfo.year},${calInfo.month },${i })">${i }</span></td>
+							<td class="${calInfo.year}${calInfo.month }${i }"><span onclick="getInfoListWeekday(${calInfo.year},${calInfo.month },${i })">${i }</span></td>
 					
 						</c:if>
 	
 						<!-- 토요일 -->
 						<c:if test="${(calInfo.dayofweek+i-1)%7==0 }" >
-						<td class="${calInfo.year}${calInfo.month }${i }" ><span class="saturday" onclick="getInfoList(${calInfo.year},${calInfo.month },${i })">${i }</span></td>					
+						<td class="${calInfo.year}${calInfo.month }${i }" ><span class="saturday" onclick="getInfoListWeekday(${calInfo.year},${calInfo.month },${i })">${i }</span></td>					
 							</tr>
 							<tr>
 						</c:if> 

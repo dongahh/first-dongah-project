@@ -60,6 +60,7 @@
 	
 	
 	
+	
 	div.roomInfoContent{display: table-cell; width:40%;}
 	div.roomInfoContent>div.roomimage{display: inline-block; vertical-align: middle;}
 	.roomListImage{width:142px; height: 99px; position: relative; display: inline-block; margin-right: 10px;}
@@ -67,6 +68,8 @@
 	
 	div.roomposs>span.yes_word{pdding 2px 3px; height: 14px; font-size: 11px; background-color: #8FC31F; color: #FFF; display: inline-block;}
 	div.roomposs>span.no_word{pdding 2px 3px; height: 14px; font-size: 11px; background-color: #FF6559; color: #FFF; display: inline-block;}
+	
+	div.roomnamelayer>div.price{display:inline-block; color:#8F8F90; text-decoration: line-through; }
 	
 	
 	
@@ -85,8 +88,9 @@
 	div.total_price>table tr th,td{line-height: 3;}
 	div.total_price>table td{font-size: 13px; font-weight: bold;}
 	
-	div.total_price_check{position:relative; top:-50px; right:-80px; text-align: right;}
-
+	div.total_price_check{position:relative; top:-50px; right:-80px; text-align: right; width: 45%;}
+	div.reserveBtncontainer{width: 100%; padding: 50px 0px; text-align: center; width: 75%}
+	.reserve_btn{background-color: #FF6559; color: #FFF; padding: 12px 0px; width: 100%; display: inline-block; cursor: pointer; font-size: 16px; font-weight: 700; border: none;}
 
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
@@ -185,6 +189,7 @@
 		let calYear = num1;
 		let calMonth = num2;
 		let calDate = num3;
+		var calAll= ""+num1+num2+num3;
 		
 		$.ajax({
 			
@@ -194,9 +199,24 @@
 			data: {"calYear":calYear, "calMonth":calMonth, "calDate":calDate},			
 			success: function(data){
 				
-				//alert('성공');
+				$('.calendar_calendar').find('td').css('backgroundColor', 'white');
+				$('.calendar_calendar').find('td').css('color','black');
+				$('.calendar_calendar').find('.sunday').css('color','red');
+				$('.calendar_calendar').find('.saturday').css('color','blue');
 				
-				$("#roomofdaylist_main").html(data);		
+				$('.'+calAll).css('backgroundColor', 'black');
+				$('.'+calAll).css('color', 'white');
+				
+				//토요일 일요일
+				$('.'+calAll).find('.sunday').css('color','white');
+				$('.'+calAll).find('.saturday').css('color','white');
+				
+				//정보container에 선택한 날자 저장.
+				$('.selectDay').empty();
+				$('.selectDay').append(num1+'년 '+(num2+1)+'월 '+num3+'일' );
+				
+				//리스트
+				$("#roomofdaylist_main").html(data);							
 			},
 			error : function(request, status, error){
 				alert('error......');								
@@ -244,6 +264,7 @@
 			
 			let checked_roomprice=[];
 			let checked_addprice=[];
+			let checked_discountprice=[];
 			
 			$('.roomofdayContainer_on').each(function(){
 				
@@ -253,6 +274,7 @@
 				
 				checked_roomprice.push($(this).find('.eachRoomPrice_hidden').text());
 				checked_addprice.push($(this).find('.addPeoplePrice_hidden').text());
+				checked_discountprice.push(parseInt($(this).find('.eachRoomPrice_hidden').text()));
 				
 				console.log($(this).find('.eachRoomPrice').text());
 			});		
@@ -261,12 +283,13 @@
 			console.log(checked_addpeople); 
 			console.log(checked_roomprice); 
 			
-			//3. 리스트를 form에 전달해줌. 클릭할떄마다 갱신.
+			//3. 리스트를 form에 넣어줌. 클릭할떄마다 갱신.
 			$('input.listattri').remove();
 			for(let i=0; i<checked_roomno.length; i++){
 				$('#sendList').prepend("<input type='hidden' class='listattri' name='reserveInfoDTO["+i+"].room_no' value='"+checked_roomno[i]+"'>");
 				$('#sendList').prepend("<input type='hidden' class='listattri' name='reserveInfoDTO["+i+"].addpeople' value='"+checked_addpeople[i]+"'>'");
 				$('#sendList').prepend("<input type='hidden' class='listattri' name='reserveInfoDTO["+i+"].addprice' value='"+checked_addprice[i]+"'>'");
+				$('#sendList').prepend("<input type='hidden' class='listattri' name='reserveInfoDTO["+i+"].discountprice' value='"+checked_discountprice[i]+"'>'");
 			}//for문 end
 	
 			
@@ -295,11 +318,7 @@
 			
 			$('.totalpriceinfo_totalprice').empty();
 			$('.totalpriceinfo_totalprice').prepend(formatNumber(total_price)+'원');
-			
-		
-			
-			
-			
+	
 		}//saveInfo()
 	
 		
@@ -322,8 +341,6 @@
 				//console.log(formatNumber(people_adult));
 				$('#'+num).find(".addPeoplePrice_hidden").append(people_adult);			
 				$('#'+num).find(".addPeoplePrice").append(formatNumber(people_adult)+'원');
-				
-				//	
 				
 			}else{
 				$('#'+num).find(".hiddenPrice").css('display','block');
@@ -358,9 +375,16 @@
 				
 				$('#'+num).find(".hiddenPrice").css('display','block');
 				
-				$('#'+num).find(".addPeoplePrice").append($.number(people_adult));
+				//console.log(formatNumber(people_adult));
+				$('#'+num).find(".addPeoplePrice_hidden").append(people_adult);			
+				$('#'+num).find(".addPeoplePrice").append(formatNumber(people_adult)+'원');
+				
+				//	
+				
 			}else{
-				$('#'+num).find(".addPeoplePrice").append(0);
+				$('#'+num).find(".hiddenPrice").css('display','block');
+				$('#'+num).find(".addPeoplePrice").append('0원');
+				$('#'+num).find(".addPeoplePrice_hidden").append(0);	
 			}
 			
 			saveInfo();
@@ -369,8 +393,7 @@
 		
 		//포멧함수
 		function formatNumber(num){
-			return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			
+			return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");			
 			
 		}
 		
@@ -421,7 +444,7 @@
 			
 			
 			<div id ="roomofdaylist_main">							
-				<!-- 일자별 객실 정보 -->														
+				<!-- 일자별 객실 정보 리스트-->														
 			</div>
 			
 			<div class="total_priceInfo">
@@ -475,12 +498,12 @@
 						</tr>										
 					</table> -->
 					
-					<div class="reserveBtn">													
+					<div class="reserveBtncontainer">													
 						<form method="post" id="sendList" action="<%=request.getContextPath() %>/reserve_payment.do">
 							<!-- 넘어갈 정보가 저장되는 공간(list형식으로 객실번호와 성인 인원수가 넘어감) -->
 							<!-- dto로 넘겨주는 것이기 때문에 name을 dto와 맞춰줘야 하는데 -->				
 							
-							<input type="submit" value="예약하기">						
+							<input type="submit" value="예약하기" class="reserve_btn">						
 						</form>	
 					</div>
 				</div>

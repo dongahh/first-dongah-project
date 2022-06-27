@@ -52,6 +52,11 @@
 							<div class="price">
 								<fmt:formatNumber value="${dto.room_price }"/>원
 							</div>
+							<span style="color:red">10%</span>
+							<div>
+								<fmt:formatNumber value="${dto.room_price*0.9 }"/>원
+							</div>
+							
 						</div>
 					
 					</div>
@@ -102,11 +107,11 @@
 						<div class="roomprice">
 							<div>즉시결제</div>
 							<div class="eachRoomPrice">
-							<fmt:formatNumber value="${dto.room_price }"/>원
+							<fmt:formatNumber value="${dto.room_price*0.9 }"/>원
 							</div>
-							<div class="eachRoomPrice_hidden" style="display:none">${dto.room_price }</div>
+							<div class="eachRoomPrice_hidden" style="display:none">${dto.room_price*0.9 }</div>
 							<div class="hiddenPrice" style="display:none" >
-								<div>현장결제</div>
+								<div>추가결제</div>
 								<div class="addPeoplePrice">
 									0원
 								</div>
@@ -151,7 +156,9 @@
 								<div class="roomname">${dto.room_name }</div>
 								<div class="peolpe">기준 ${dto.room_people }명 / 최대 ${dto.room_mpeople }명</div>												
 							</div>
-							<div class="price">${dto.room_price }원</div>
+							<div class="price">
+								<fmt:formatNumber value="${dto.room_price }"/>원
+							</div>
 						</div>
 					
 					</div>

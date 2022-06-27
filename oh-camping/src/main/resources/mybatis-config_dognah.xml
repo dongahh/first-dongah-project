@@ -10,7 +10,11 @@
     	<typeAliases>
     		<typeAlias type="com.pro.cda.CDA_campingDAO" alias="CDA_campingDAO"/>
     		<typeAlias type="com.pro.cda.CDA_roomDTO" alias="CDA_roomDTO"/>
-    		<typeAlias type="com.pro.cda.CalendarDTO" alias="CalendarDTO"/>   		  	
+    		<typeAlias type="com.pro.cda.CalendarDTO" alias="CalendarDTO"/> 
+    		
+    		<typeAlias type="com.pro.cda.CDA_paymentdetailDTO" alias="CDA_paymentdetailDTO"/> 
+    		<typeAlias type="com.pro.cda.CDA_paymentDTO" alias="CDA_paymentDTO"/> 
+    		  		  	
     	</typeAliases>
     	
     </configuration>

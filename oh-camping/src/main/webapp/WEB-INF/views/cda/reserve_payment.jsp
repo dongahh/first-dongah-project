@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -80,7 +81,9 @@
 	div.refundAgreeConainer table th{ background-color:#F4F4F4; border-collapse:separate; border-color: grey; font-size: 10px; }
 	div.refundAgreeConainer table td{border: 1px solid #E6E5E5; font-size: 10px; line-height: 2;}
 	
-	
+	/* 팝업 버튼 */
+	div.paybtnContainer{width: 100%; padding: 50px 0px; text-align: center;}
+	div.popupbtn{background-color: #FF6559; color: #FFF; padding: 12px 0px; width: 100%; display: inline-block; cursor: pointer; font-size: 16px; font-weight: 700;}
 	/* 팝업 창 */
 	
 	div.popupContainer{width:450px; height: 500px; border: 1px solid black; position:fixed; top:20%; left:30%;  background: #fff;}
@@ -106,7 +109,7 @@
 		//전체 금액 가져오는 기능
 		let sum = 0;
 		
-		$(".price_per_room").each(function(){
+		$(".price_per_room_hidden").each(function(){
 			
 			console.log($(this).text());
 			sum = parseInt(sum) + parseInt($(this).text());		
@@ -115,7 +118,8 @@
 			console.log(sum);
 
 	 	$(".totalPrice").empty();
-	 	$(".totalPrice").append(sum); 
+	 	$(".totalPrice").append(formatNumber(sum)+"원"); 
+	 	$(".handoverInfo").append("<input type='hidden' name='payment_price' value="+sum+">");
 	 	
 
 	 	
@@ -167,11 +171,22 @@
 		
 	}
 	
+	//팝업닫기
+	function closePopup(){
+		$(".popupContainer").css('display',"none");
+	}
+	
+	//포멧함수
+	function formatNumber(num){
+		return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");			
+		
+	}
+	
 </script>
 </head>
 <body>
 
-	<form action="" method="post" >
+	<form action="<%=request.getContextPath() %>/reserve_confirm.do" method="post" >
 	<c:set var="roomList" value="${roomList}"/>
 
 	
@@ -211,13 +226,11 @@
 								</div>
 							</td>
 							<td>
-								<div>${roomlist.room_resdate.substring(0,10)}.
+								<div>${roomlist.room_resdate.substring(0,10)}
 									
 								
 								</div>
-								<div>
-									<span>비수기 주중</span>
-								</div>
+								
 								
 							</td>
 							
@@ -226,16 +239,24 @@
 									<table>
 										<tr>
 											<td>객실금액</td>
-											<th>${roomlist.room_price }</th>										
+											<th>
+												<fmt:formatNumber value="${roomlist.room_price }"/>원
+											</th>										
 										</tr>
 										<tr>
 											<td>추가금액</td>
-											<th>${roomlist.addprice }</th>
+											<th>
+												<fmt:formatNumber value="${roomlist.addprice }"/>원
+											
+											</th>
 										</tr>
 										<tr>
-											<td>결제금액</td>
-											<th class="price_per_room">${roomlist.room_price+roomlist.addpeople*20000 }</th>
-										</tr>
+											<td>결제금액</td>																	
+												<th class="price_per_room">
+													<fmt:formatNumber value="${roomlist.room_price+roomlist.addprice }"/>원
+												</th>
+												<div style="display:none" class="price_per_room_hidden">${roomlist.room_price+roomlist.addprice }</div>																						
+											</tr>
 									</table>
 								</div>
 							
@@ -266,6 +287,7 @@
 		
 		<div class="people_payContainer">
 			<div class="peopleInfoContainer">
+				<c:set var="memberinfo" value="${testiddto }"/>
 			
 				<div class="word">예약자 정보 입력<div class="checktext">✔표시는 필수 작성</div></div>
 				
@@ -278,24 +300,24 @@
 						<tr>
 							<th>예약자 이름</th>
 							<th>✔</th>
-							<td><input type="text" value="예약자의 이름을 입력해주세요"></td>
+							<td><input type="text" value="${memberinfo.mem_name }" name="payment_pname"></td>
 						</tr>
 						<tr>
 							<th>휴대전화 번호</th>
 							<th>✔</th>
-							<td><input type="text" value="'-'없이 입력해주세요">
+							<td><input type="text" value="${memberinfo.mem_phone }" name="payment_pphone">
 							<div class="phoneText">예약 관련 연락에 이용되오니 휴대폰 번호를 정확하게 입력해 주세요.</div></td>
 						</tr>
 						<tr>
 							<th>픽업 이용 여부</th>
 							<th></th>
-							<td><input style="color:red" type="text" value="예약자의 이름을 입력해주세요"></td>
+							<td><input style="color:red" type="text" value="픽업 불가능"></td>
 						</tr>
 						<tr>
 							<th>도착 예정 시간</th>
 							<th></th>
 							<td>
-								<select>
+								<select name="arrive_time">
 									<option value="15">15:00</option>
 									<option value="16">16:00</option>
 									<option value="17">17:00</option>
@@ -313,37 +335,37 @@
 							<th>출발지역</th>
 							<th></th>
 							<td>
-								<select>
+								<select name="arrive_eara">
 									
-									<option>서울특별시</option>
-									<option>경기도</option>
-									<option>인천광역시</option>
-									<option>부산광역시</option>
-									<option>경상남도</option>
-									<option>경상북도</option>
-									<option>대구광역시</option>
-									<option>대전광역시</option>
-									<option>충청남도</option>
-									<option>충청북도</option>
-									<option>강원도</option>
-									<option>전라남도</option>
-									<option>전라북도</option>
-									<option>광주광역시</option>
-									<option>세종시</option>
-									<option>제주도</option>
+									<option value="서울특별시">서울특별시</option>
+									<option value="경기도">경기도</option>
+									<option value="인천광역시">인천광역시</option>
+									<option value="부산광역시">부산광역시</option>
+									<option value="경상남도">경상남도</option>
+									<option value="경상북도">경상북도</option>
+									<option value="대구광역시">대구광역시</option>
+									<option value="대전광역시">대전광역시</option>
+									<option value="충청남도">충청남도</option>
+									<option value="충청북도">충청북도</option>
+									<option value="강원도">강원도</option>
+									<option value="전라남도">전라남도</option>
+									<option value="전라북도">전라북도</option>
+									<option value="광주광역시">광주광역시</option>
+									<option value="세종시">세종시</option>
+									<option value="제주도">제주도</option>
 								
 								</select>
-								<select>
-									<option>자가</option>
-									<option>랜트카</option>
-									<option>대중교통</option>
+								<select name="arrive_getin">
+									<option value="자가">자가</option>
+									<option value="랜트카">랜트카</option>
+									<option value="대중교통">대중교통</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
 							<th>요청사항</th>
 							<th></th>
-							<td><textarea cols="30" rows="20">요청사항을 입력해 주세요.</textarea></td>
+							<td><textarea cols="30" rows="20" name="paymeny_request">요청사항을 입력해 주세요.</textarea></td>
 						</tr>													
 					</table>				
 				</div>
@@ -530,7 +552,7 @@
 					
 					<div class="paybtnContainer" >
 						<!-- <input type="submit" value="결제하기"> -->
-						<div class="popupbtn" onclick="showPopup()">팝업열기</div>
+						<div class="popupbtn" onclick="showPopup()">결제하기</div>
 					</div>
 					
 					
@@ -580,23 +602,29 @@
 				</div>
 				
 				<div class="pop_cancelBtn">
-					<input class="popbtn" type="button" value="취소">
+					<input class="popbtn" type="button" value="취소" onclick="closePopup()">
 					<input class="popbtn" type="submit" value="동의하고 결제 진행">
-					<div>
-						<!-- 사용자 정보 -->
-						<input type="hidden" name="customername" value="">
-						<input type="hidden" name="customerphone" value="">
-						<input type="hidden" name="customerintime" value="">
-						<input type="hidden" name="customerrequest" value="">
-						<input type="hidden" name="customereara" value="">
+					<div class="handoverInfo">
+						<!-- 사용자 정보 : 이름, 전화번호, 회원번호  -->
+						<%-- <input type="hidden" name="payment_memno" value="${memberinfo.member_no }"> --%>
 						
-						<!-- 객실정보:이용일, 객실명, 인원  => 이건 따로 리스트로 받아와야하나,,,,,,,,,,,,-->
+						<!-- 객실정보:이용일, 객실명, 인원 , 가격-->
+						<c:if test="${!empty roomList }" >
+						<c:forEach  var="roomlist" items="${roomList }" varStatus="status">
+							<input type="hidden" name="paymentdetailDTO[${status.index }].paymentDetail_resdate" value="${roomlist.room_resdate }" >
+							<input type="hidden" name="paymentdetailDTO[${status.index }].paymentDetail_roomno" value="${roomlist.room_no }" >
+							<input type="hidden" name="paymentdetailDTO[${status.index }].paymentDetail_roomname" value="${roomlist.room_name }" >
+							<input type="hidden" name="paymentdetailDTO[${status.index }].paymentDetail_people" value="${roomlist.addpeople }" >
+							<input type="hidden" name="paymentdetailDTO[${status.index }].paymentDetail_price" value="${roomlist.addprice +roomlist.room_price}" >
+					
+						</c:forEach>
+						</c:if> 
 						
-						<!-- 결제정보 -->
-						<input type="hidden" name="customertotalprice" value="">
+						<!-- 결제정보  총금액 => ajax로 받아오기 -->
+		
 					</div>
 				</div>
-				<!-- <div class="pop_payBtn"></div> -->
+				
 			
 			</c:if>
 		</div>

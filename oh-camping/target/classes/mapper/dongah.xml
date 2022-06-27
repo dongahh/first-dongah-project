@@ -16,6 +16,29 @@
     		select * from camp_room where room_no=#{num}
     	</select>
     	
+    	<select id="testid" parameterType="String" resultType="com.pro.cda.testidDTO">
+    		select * from camp_member where mem_id=#{id}
+    	</select>
+    	
+    	<!-- 결제 완료 -->
+    	<select id="getmemno" parameterType="String" resultType="int">
+    		select member_no from camp_member where mem_id=#{id}
+    	</select>
+    	
+    	<insert id="reservePayment" parameterType="CDA_paymentDTO">
+    		insert into camp_payment values((select max(payment_no) from camp_payment)+1,
+    		#{payment_memno},#{payment_pname},#{payment_pphone},#{payment_price},sysdate,#{paymeny_request})
+    	</insert>
+    	
+    	<select id="getpaymentno" resultType="int">
+    		select max(payment_no) from camp_payment
+    	</select>
+    	 <insert id="orderDetail" parameterType="CDA_paymentDTO">
+    		insert into camp_paymentDetail values   		
+    			((select max(paymentDetail_no) from camp_paymentDetail)+1,
+    			#{paymentDetail_paymentno}, #{paymentDetail_roomno}, #{paymentDetail_people},#{paymentDetail_price} )
+	
+    	</insert> 
     	
     
     
