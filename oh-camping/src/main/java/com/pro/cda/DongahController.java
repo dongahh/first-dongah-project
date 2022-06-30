@@ -254,16 +254,17 @@ public class DongahController {
 		
 		this.dao.cda_paymentConfirm(paymentDTO);
 		
+		//payment_no가져오기(마지막꺼)
+		int payment_no = this.dao.cda_getpatmentno();
+		
+		paymentDTO.setPayment_no(payment_no);
 		
 		
 		
 		//결제 디테일
 		List<CDA_paymentdetailDTO> detailDTOList = new ArrayList<CDA_paymentdetailDTO>();		
 		for(CDA_paymentdetailDTO paymentdetilDTO: paymentdetailDTO.getPaymentdetailDTO()) {
-			
-			//payment_no가져오기(마지막꺼)
-			int payment_no = this.dao.cda_getpatmentno();
-			
+	
 			
 			paymentdetilDTO.setPaymentDetail_paymentno(payment_no);
 			this.dao.cda_reserveComfirmdetail(paymentdetilDTO);
@@ -280,6 +281,20 @@ public class DongahController {
 
 		return "cda/reserve_confirm";
 		
+	}
+	
+	//예약 취소
+	@RequestMapping("reserve_cancel.do")
+	@ResponseBody
+	public void reservecancel(@RequestParam("paymentno") int paymentno) {
+		
+		System.out.println("paymentno>"+paymentno);
+		//paymentdetail 삭제
+		this.dao.cda_paymentDetailremCancel(paymentno);
+		
+		
+		//payment 삭제
+		this.dao.cda_paymentCancel(paymentno);
 	}
 	
 	

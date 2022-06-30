@@ -40,6 +40,17 @@
 	
     	</insert> 
     	
+    	
+    	<!-- 예약취소 -->
+		<delete id="detailRemove" parameterType="int">
+			delete from camp_paymentdetail where PAYMENTDETAIL_PAYMENTNO=#{no}
+		
+		</delete>
+		
+		<delete id="paymentRemove" parameterType="int">
+			delete from camp_payment where PAYMENT_NO=#{no}
+		
+		</delete>
     
     
     

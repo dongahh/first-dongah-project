@@ -25,6 +25,12 @@ public interface CDA_campingDAO {
 	//결제 디테일
 	public int cda_reserveComfirmdetail(CDA_paymentdetailDTO paymentdetailDTO);
 	
+	//결제 디테일 삭제
+	public int cda_paymentDetailremCancel(int no);
+	
+	//결제 삭제
+	public int cda_paymentCancel(int no);
+	
 	
 	//로그인 세션 정보(나중에 병합시 삭제!!!!!)
 	public testidDTO gettestid(String id);

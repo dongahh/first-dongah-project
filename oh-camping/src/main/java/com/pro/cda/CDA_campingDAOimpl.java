@@ -51,6 +51,17 @@ public class CDA_campingDAOimpl implements CDA_campingDAO{
 	
 	
 	
+	@Override
+	public int cda_paymentDetailremCancel(int no) {
+		
+		return this.sqlSession.delete("detailRemove",no);
+	}
+
+	@Override
+	public int cda_paymentCancel(int no) {
+		return this.sqlSession.delete("paymentRemove",no);
+	}
+
 	////////////////////////////////////////////////////////////////////
 	//id 세션으로 정보 받아오기(나중에 삭제!!!!!)
 	@Override

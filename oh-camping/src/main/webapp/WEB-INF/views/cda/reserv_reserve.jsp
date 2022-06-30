@@ -119,7 +119,7 @@
 			datatype : "text",
 			data : {"calendar_year": calendar_year, "calendar_month":calendar_month},
 			success : function(data){
-				//alert('성공')
+				
 				console.log('달력 ajxa성공');
 				console.log(data);
 				$("#reserve_calendar").html(data);

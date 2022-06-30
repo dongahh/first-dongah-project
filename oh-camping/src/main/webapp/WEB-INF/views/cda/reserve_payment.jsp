@@ -11,7 +11,7 @@
 
 <style type="text/css">
 	body, h1, h2, h3, h4, h5, div, dl, dt, dd, fieldset, form, label, p, th, td, input, select, textarea, button {
-	margin:0; padding:0; line-height:1.5; font-size: 12px; color:#666;}
+	margin:0; padding:0; line-height:1.5; font-size: 12px; color:#666; font-family: Noto sans kr;}
 	
 	/* 전체 컨테이너*/
 	div.reserve_paymentMainContainer{font-family:Noto sans kr; word-break:break-all; margin:0px auto; margin-top:50px; padding-bottom:30px; padding: 57px 0px 0px; width:1024px; }
@@ -96,6 +96,8 @@
 	div.popupContainer>div.pop_cancelBtn{width:100%;}
 	div.pop_cancelBtn>.popbtn{width:49.5%; height: 48px; border: none; background-color: #FF6559; COLOR: #FFF; FONT-SIZE: 16px; font-weight: 400;}
 
+	.shadow{position: fixed;left: 0;top: 0;background: rgba(0, 0, 0, 0.52);width: 100%;height: 100vh;display: none}
+	
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
@@ -133,6 +135,21 @@
 			}
 		});
 	 	
+	 	//모두 체크 되어있으면 전체 채크에 채크
+	 	$("input[name=chk]").click(function(){
+	 		var total = $("input[name:chk]").length;
+	 		var check = $("input[name:chk]:checked").length;
+	 		
+	 		if(tatal != checked){
+	 			$("#checkAll").prop("check", false);
+	 		}else{
+	 			$("#checkAll").prop("check", true);
+	 		}
+	 	});
+	 	
+	 	
+	 	
+	 	
 	 	//내용보기 클릭시
 	 	//<span class="agreeDetail2">내용보기</span>
 	 	
@@ -162,18 +179,29 @@
 		 		$(".agreeDetail3").text('닫기');
 	 		}	 			 		
 	 	});
+		
+		$(".shadow").hide();
 
 	});	
 	
 	//팝업
 	function showPopup(){
-		$(".popupContainer").css('display',"block");
+		//체크 여부 확인
+		if($("#checkAll").is(':checked')){
+			$(".shadow").show();
+			$(".popupContainer").css('display',"block");
+		}else{
+			alert('모든 약관에 동의해 주세요.')
+		}
+		
+		
 		
 	}
 	
 	//팝업닫기
 	function closePopup(){
 		$(".popupContainer").css('display',"none");
+		$(".shadow").hide();
 	}
 	
 	//포멧함수
@@ -564,6 +592,7 @@
 	</div> <!-- class:reserve_paymentContainer div end-->
 	
 	<!-- 팝업 -->
+		<div class="shadow"></div>
 		<div class="popupContainer" style="display:none">
 			<c:if test="${!empty roomList }">
 				<div class="pop_title">
